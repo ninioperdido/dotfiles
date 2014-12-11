@@ -1,0 +1,180 @@
+"" Setup Vundle   =============================================================
+set nocompatible       " use VIM settings, rather than VI settings
+filetype off
+
+""" Initialize vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle managa vundle. Required.
+Plugin 'gmarik/Vundle.vim
+
+""" Filetypes      =============================================================
+Plugin 'elixir-lang/vim-elixir'        " Elixir
+autocmd BufNewFile,BufReadPost *.md,*.markdown set filetype=markdown " Markdown
+
+""" Utilities      -============================================================
+Plugin 'scrooloose/syntastic'          " Syntax Highlighting
+Plugin 'tomtom/tcomment_vim'           " Line commenting
+Plugin 'christoomey/vim-tmux-navigator' " Navigate between tmux panes and vim splits seamlessly
+Plugin 'tpope/vim-fugitive'            " Git support from dat tpope
+Plugin 'bling/vim-airline'             " UI statusbar niceties
+set laststatus=2                     " Enable airline even if no splits
+let g:airline_theme='luna'
+let g:airline_powerline_fonts=1
+let g:airline_enable_branch=1
+let g:airline_enable_syntastic=1
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_linecolumn_prefix = '␊ '
+let g:airline_linecolumn_prefix = '␤ '
+let g:airline_linecolumn_prefix = '¶ '
+let g:airline_branch_prefix = '⎇ '
+let g:airline_paste_symbol = 'ρ'
+let g:airline_paste_symbol = 'Þ'
+let g:airline_paste_symbol = '∥'
+let g:airline#extensions#tabline#enabled = 0
+let g:airline_mode_map = {
+    \ 'n' : 'N',
+    \ 'i' : 'I',
+    \ 'R' : 'REPLACE',
+    \ 'v' : 'VISUAL',
+    \ 'V' : 'V-LINE',
+    \ 'c' : 'CMD   ',
+    \ '': 'V-BLCK',
+    \ }
+if !exists('g:airline_symbols')        " Correct problems showing airline symbols
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+set noshowmode
+let g:bufferline_echo = 0
+
+Plugin 'chriskempson/base16-vim'       " base16 theme
+Plugin 'roman/golden-ratio'
+
+""" Navigation =================================================================
+Plugin 'kien/ctrlp.vim.git'
+let g:ctrlp_match_window_bottom = 1    " Show at bottom of window
+let g:ctrlp_working_path_mode = 'ra'   " Our working path is our VCS project or the current directory
+let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
+let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
+let g:ctrlp_open_new_file = 'v'        " Open selections in a vertical split
+let g:ctrlp_open_multiple_files = 'vr' " Opens multiple selections in vertical splits to the right
+let g:ctrlp_arg_map = 0
+let g:ctrlp_dotfiles = 0               " Do not show (.) dotfiles in match list
+let g:ctrlp_showhidden = 0             " Do not show hidden files in match list
+let g:ctrlp_split_window = 0
+let g:ctrlp_max_height = 40            " Restrict match list to a maxheight of 40
+let g:ctrlp_use_caching = 0            " Don't cache, we want new list immediately each time
+let g:ctrlp_max_files = 0              " No restriction on results/file list
+let g:ctrlp_working_path_mode = ''
+let g:ctrlp_dont_split = 'NERD_tree_2' " Don't split these buffers
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|gitkeep)$',
+    \ 'file': '\v\.(exe|so|dll|log|gif|jpg|jpeg|png|psd|DS_Store|ctags|gitattributes)$'
+    \ }
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-e>', '<c-space>'],
+    \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+    \ 'AcceptSelection("t")': ['<c-t>'],
+    \ 'AcceptSelection("v")': ['<cr>'],
+    \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
+    \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
+    \ 'PrtHistory(-1)':       ['<c-n>'],
+    \ 'PrtHistory(1)':        ['<c-p>'],
+    \ 'ToggleFocus()':        ['<c-tab>'],
+    \}
+Plugin 'tpope/vim-vinegar'             " Navigate up a directory with '-' in netrw, among other things
+Plugin 'ervandew/supertab'
+
+call vundle#end()                      " Required for Vundle
+filetype plugin indent on              " Turn on plugins, indentation, etc.
+
+set t_Co=256                           " Force 256 Colors
+set number                             " Line numbering
+set t_ut=                              " Improve screen clearing by using the background color
+set background=dark
+syntax on
+set enc=utf-8
+set cul                                " Highlight current line
+set cuc                                " Highlight current column
+" Show trailing whitespace and spaces before a tab:
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/ 
+
+set t_ti= t_te=                        " Prevent Vim from clobbering the scrollback buffer.
+set showcmd                            " Display incomplete commands
+set scrolloff=3                        " Start scrolling 3 lines before the border
+set smartindent
+set autoindent
+set modeline
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set ruler              " show the cursor position all the time
+set laststatus=2       " always display the status line
+set autowrite          " automatically :write before runnings commands
+set noswapfile         " 
+set nobackup           " 
+set nowritebackup      " 
+set hlsearch           " Searching
+set incsearch
+set ignorecase
+set smartcase
+set autoread
+set foldmethod=indent
+set nofoldenable
+set viminfo='10,\"100,:20,%,n~/.viminfo
+set listchars=tab:▸\ ,eol:¬
+set numberwidth=4
+set backspace=indent,eol,start
+set colorcolumn=81                     " Draw a margin in the 81th column
+ 
+" Quicker window movement
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
+
+" :au FocusLost * :wa
+" colorscheme monokai
+
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+"call pathogen#infect()
+"call pathogen#helptags()
+
+" Write with superpowers
+
+cmap w!! %!sudo tee > /dev/null %
+
+" Spell
+set spelllang=es
+
+let Tlist_Use_Right_Window=1
+let Tlist_Enable_Fold_Column=0
+let Tlist_Show_One_File=1 " especially with this one
+let Tlist_Compact_Format=1
+"let Tlist_Ctags_Cmd='{/opt/local/bin/ctags}'
+set updatetime=1000
+nmap ,t :!(cd %:p:h;ctags *)& " Maps the updates of tags to key ,t.
+set tags=tags; " The ';' at the end will cause the ctags plugin to search for current dir and above dirs until it find a tag file.
+
+" Add the following below if you want to generate ctags upon saving a file
+" Auto-generate ctags upon making changes to a file
+autocmd BufWritePost *.erl :silent !(cd %:p:h;ctags *)&
+
+" End .vimrc
